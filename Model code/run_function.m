@@ -5,8 +5,8 @@ clear
 sens_par_name_1 = "$c$";
 sens_par_name_2 = "$\gamma$";
 % Define the range of the sensitivity analysis 
-sens_par_range_1=0:0.1:1; 
-sens_par_range_2=0:0.1:0.5; 
+sens_par_range_1=1; 
+sens_par_range_2=0.5; 
 
 %% Start of the loops  
 % Initialize the second scenario count parameter
@@ -75,14 +75,14 @@ end
 
 % Run the line below to plot a chart dashboard of variables over time under
 % full commitment 
-%run('Figures code/Simulation_full_commitment');
+run('Figures code/Simulation_full_commitment');
 
 % Run the line below to plot a chart dashboard of variables over time under
 % different levels of commitment 
 %run('Figures code/Simulation_various_commitment');
 
 % Run the line below to plot a chart dashboard of variables measuring transition over two parameters with sensitivity
-run('Figures code/Simulated_over_pars');
+%run('Figures code/Simulated_over_pars');
 
 % Run the line below to plot a chart dashboard of the transition risk index parameter with sensitivity
 %run('Figures code/Transition_risk_parameter');
