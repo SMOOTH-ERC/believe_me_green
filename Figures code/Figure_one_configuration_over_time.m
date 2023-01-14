@@ -1,3 +1,9 @@
+%% Creation of figures showing the simulation unfolding over steps for a single vector of parameters
+% it first requires to run the model (file run.m)
+% it creates a series of figures showing a selection of variables over
+% simulation steps
+% e.g. Fig. 4 in the working paper "Believe me when I say green".
+
 end_time=T-R;
 transient=4; 
 

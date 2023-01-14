@@ -1,3 +1,14 @@
+%% Creation of 3D figures for sensitivity of green capital share (kappa) over 2 parameters 
+% it first requires to run a sensitivity analysis (file run.m) over two
+% parameters ("sens_par_name_1" and "sens_par_name_2")
+
+% it produces two 3D figures, one for each simulation step
+% kappa is evaluated at two simulations steps
+% step 120 which corresponds to year 2050
+% step 240 which corresponds to year 2080
+
+% e.g. Figure 5 in the working paper "Believe me when I say green".
+
 set(groot,'defaultAxesTickLabelInterpreter','latex');
 
 for i=1:sens_run_1

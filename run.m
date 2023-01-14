@@ -1,14 +1,31 @@
-%% Run file for the code of 'Climate policy uncertainty'
+%% Run file for the code of 'Believe me when I say green'
+
+% this file runs the model for given parameters and initial conditions
+
+% it allows to run the model for a single configuration of for multiple
+% configurations (changing two inputs at the time). Multiple configurations
+% testing is instrumental to the sensitivity analysis perfomed in the paper.
+
+
 clear
 
-%% Setting sensitivity analysis
+%% Set configurations
+
+% To run a SINGLE configuration: input values at line 36
+
+% To run MULTIPLE configurations: three steps required
+
+% i. Define the two inputs on which sensitivity analysis should be run
 sens_par_name_1 = "$c$";
 sens_par_name_2 = "$\gamma$";
-% Define the range of the sensitivity analysis 
-sens_par_range_1=1; 
+% ii. Define the range of the sensitivity analysis 
+sens_par_range_1=0:0.1:1; 
 sens_par_range_2=0.5; 
+% iii. Change the assigned value at line 36 and below to "sens_par_1" and "sens_par_2"
+% e.g. to run multiple commitments values (c) as indicated in the range of line 22, at line 50 write:
+% c=sens_par_1;
 
-%% Start of the loops  
+%% Start loops over configurations  
 % Initialize the second scenario count parameter
 sens_run_2=  0;
 % Start of the second sensitivity analysis loop
@@ -28,10 +45,10 @@ for sens_par_2 = sens_par_range_2
         J               = 2;                                    %set of expectation rules                                                                      
         eta             = 0.5;                                  %memory parameter
         beta            = 1;                                    %belief responsiveness
-        gamma           = sens_par_2; %0.5;                     %investment responsiveness
+        gamma           = 0.5;                                  %investment responsiveness
         g_tax           = 0.02;                                 %tax target growth rate 
         a               = 1;                                    %vulnerability to transition risks
-        c               = sens_par_1;                           %commitment
+        c               = 0.5;                                  %commitment
         delta           = 0.018;                                %capital depreciation rate 
         g_Y             = 0.005;                                %exogenous expansion of productive capacity 
         initial_tax     = 0.1;                                  %initial tax target
@@ -73,17 +90,5 @@ for sens_par_2 = sens_par_range_2
     end 
 end 
 
-% Run the line below to plot a chart dashboard of variables over time under
-% full commitment 
-run('Figures code/Simulation_full_commitment');
 
-% Run the line below to plot a chart dashboard of variables over time under
-% different levels of commitment 
-%run('Figures code/Simulation_various_commitment');
-
-% Run the line below to plot a chart dashboard of variables measuring transition over two parameters with sensitivity
-%run('Figures code/Simulated_over_pars');
-
-% Run the line below to plot a chart dashboard of the transition risk index parameter with sensitivity
-%run('Figures code/Transition_risk_parameter');
 

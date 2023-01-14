@@ -1,3 +1,10 @@
+%% Creation of figures showing the shape of the transition risk index (pi_pot)
+
+% it creates a 3D figuree showing the transition risk index as a function
+% of two parameters ("g_tax" and "1-kappa")
+
+% e.g. Figure A2 in the working paper "Believe me when I say green".
+
 set(groot,'defaultAxesTickLabelInterpreter','latex');
 
 rangeZ=1; 

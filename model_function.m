@@ -1,5 +1,13 @@
 %% Climate policy uncertainty model - Emanuele Campiglio, Francesco Lamperti, Roberta Terranova
- 
+% Copyright Campiglio, Lamperti, Terranova 2023
+
+% this file provides the source code of the model
+% it is composed by a single function (model_function) performing the
+% simulation
+% inputs: initial conditions and parameters
+% outputs: all key variables 
+
+
 function[output] = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,g_sk,g_b,D,initial_kappa,initial_lc_cost)
  
 %% Vectors
@@ -146,9 +154,7 @@ for t=3:T
 end 
 
 
-%% Results
-res=table(chi_agg, theta(1:T,1), K(:,1), Ec_t(:,1), n);
- 
+%% Results 
 save('Results')
 output='Results';
 end

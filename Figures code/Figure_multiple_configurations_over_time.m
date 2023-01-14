@@ -1,3 +1,12 @@
+%% Creation of figures showing the simulation unfolding over steps for multiple values of a single parameter
+% it first requires to run the model (file run.m)
+% it creates a series of figures showing a selection of variables over
+% simulation steps for different values of parameter "sens_par_name_1" as
+% defined in file "run.m"
+
+% e.g. Fig. 8 in the working paper "Believe me when I say green".
+
+
 end_time=T-R;
 transient=4; 
 
