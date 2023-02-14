@@ -8,7 +8,7 @@
 % outputs: all key variables 
 
 
-function[output] = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,g_sk,g_b,D,initial_kappa,initial_lc_cost)
+function[output] = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,g_sk,g_b,D,initial_kappa,initial_lc_cost,g_thetal)
  
 %% Vectors
 % Demand and supply
@@ -70,7 +70,13 @@ n(1:3)              =0.3;
 n_s(1:3)            =0.7; 
 theta(:,1)          =initial_lc_cost; 
 theta(:,2)          =1;
-    
+
+%% Costs evolution 
+theta_prev = theta(2,1); 
+for tt=3:T 
+    theta(tt,1)=theta(2,2)+(theta_prev-theta(2,2))*exp(-g_thetal*tt);
+    theta_prev = theta(tt,1);
+end 
 
 %%  Carbon tax announcement 
     
@@ -130,8 +136,9 @@ for t=3:T
     kappa(t,:)      =   K(t,:)./sum(K(t,:));                                   % sectoral capital share
  
 %% Carbon tax implemented      
-    pi_pot(t)       =  1 - 1/(1 + a*(1-kappa(t,1))*tax_target(t));                 % compute potential transition risk index             
-    tax(t,2)            =   c*tax_target(t) + (1-c)*tax_target(t)*(1-pi_pot(t));   % set actual tax 
+    pi_pot(t)      =  1 - 1/(1 + a*(1-kappa(t,1))*tax_target(t));                 % compute potential transition risk index             
+    %pi_pot(t)       = min(1,a*(1-kappa(t,1))*tax_target(t));
+    tax(t,2)        = c*tax_target(t) + (1-c)*tax_target(t)*(1-pi_pot(t));   % set actual tax 
     pi_actual(t)    = 1 - 1/(1 + a*(1-kappa(t,1))*tax(t,2));                       % compute actual transition risk index depending on actual tax 
           
 %% Production 
