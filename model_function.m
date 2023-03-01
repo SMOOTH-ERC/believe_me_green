@@ -8,22 +8,15 @@
 % outputs: all key variables 
 
 
-function[output] = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,g_sk,g_b,D,initial_kappa,initial_lc_cost,g_thetal)
+function[output] = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,g_sk,g_b,D,initial_kappa,initial_lc_cost)
  
 %% Vectors
-% Demand and supply
-s                   =NaN(T,N);                % sectoral supply 
-S                   =NaN(T,1);                % total supply
-
 %Costs
 theta               =NaN(T+1,N);             % cost of production of one unit of output with no carbon tax 
-unit_cost           =NaN(T,N);               % unit cost of tehnology 
-costs               =NaN(T,N);               % total costs of technology 
 
 % Capital and investment
 K                   =NaN(T,N);                 % capital stock
 kappa               =NaN(T,N);                 % low- and high-carbon share of capital capital 
-xi_k                =NaN(T+1,N);               % productivity of capital
 I                   =NaN(T,N);                 % investment per technology 
 totI                =NaN(T,1);                 % total investment
 chi                 =NaN(T,J);                 % share of low-carbon investment for each expectation type               
@@ -35,8 +28,6 @@ n_s                 =NaN(T,1);              % share of sceptics
 E_tax_b             =NaN(T,N);              % tax expected by believers updated in every t          
 E_tax_s             =NaN(T,N);              % tax expected by skeptics updated in every t
 E_tax               =NaN(T,N,J);            % matrix of expected tax
-E_tax_allt_b        =NaN(T,T);              % schedule of expected tax believers
-E_tax_allt_s        =NaN(T,T);              % schedule of expected tax sceptics
 Ec_t                =NaN(T,J);              % schedule expected costs of high-carbon for both belief types
 z1                  =NaN(T,J);              % investment choice logit numerator for both belief types - low-carbon
 z2                  =NaN(T,J);              % investment choice logit numerator for both belief types - high-carbon 
@@ -48,35 +39,23 @@ zz                  =NaN(T,1);              % belief choice logit denominator
 
 % Policy maker 
 tax_target          =NaN(T,1);              % carbon tax target 
-tax_target_t        =NaN(T,T);              % carbon tax target updated in every t
 tax                 =NaN(T,N);              % carbon tax implemented
 pi_pot              =NaN(T,1);              % potential transition risk index function
 pi_actual           =NaN(T,1);              % actual transition risk index   
-trans_rate          =NaN(T,1);              % speed of transition
 
 %% Initial values
 kappa(2,:)          =[initial_kappa, 1-initial_kappa]; 
 K(2,:)              =155.2*[kappa(2,1),kappa(2,2)];
-xi_k(:,:)           =0.3;
 tax(1,2)            =initial_tax;   
 tax(2,2)            =initial_tax;   
 tax_target(2)       =initial_tax; 
 E_tax_b(:,:)        =0;                     
 E_tax_s(:,:)        =0;            
-E_tax(:,:,:)        =0;   
-E_tax(2,2,:)        =[tax_target(2),0];
 U(1:3,:)            =[1,0.15;1,0.15;1,0.15]; 
 n(1:3)              =0.3; 
 n_s(1:3)            =0.7; 
 theta(:,1)          =initial_lc_cost; 
 theta(:,2)          =1;
-
-%% Costs evolution 
-theta_prev = theta(2,1); 
-for tt=3:T 
-    theta(tt,1)=theta(2,2)+(theta_prev-theta(2,2))*exp(-g_thetal*tt);
-    theta_prev = theta(tt,1);
-end 
 
 %%  Carbon tax announcement 
     
@@ -137,18 +116,9 @@ for t=3:T
  
 %% Carbon tax implemented      
     pi_pot(t)      =  1 - 1/(1 + a*(1-kappa(t,1))*tax_target(t));                 % compute potential transition risk index             
-    %pi_pot(t)       = min(1,a*(1-kappa(t,1))*tax_target(t));
     tax(t,2)        = c*tax_target(t) + (1-c)*tax_target(t)*(1-pi_pot(t));   % set actual tax 
     pi_actual(t)    = 1 - 1/(1 + a*(1-kappa(t,1))*tax(t,2));                       % compute actual transition risk index depending on actual tax 
-          
-%% Production 
-    s(t,:)  =   K(t,:).*xi_k(t);                                                   % sectoral supply
-    S(t)    =   sum(s(t,:));                                                       % total supply
-       
-%% Final good costs 
-    unit_cost(t,:)  =   (theta(t,:).*(1 + tax(t,:)));                              % unit cost of production including tax 
-    costs(t,:)      =   s(t,:).*unit_cost(t,:);                                    % sectoal costs
-       
+                        
 %% Belief switching  
     E_tax_t         =   reshape(E_tax(t,:,:),[N,J]);                               % expected tax in previous period by both belief types
     acc(t-1,:)      =   abs(tax(t,2) - E_tax_t(2,:));                              % absolute value of prediction errors
