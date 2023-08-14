@@ -7,7 +7,7 @@
 
 set(groot,'defaultAxesTickLabelInterpreter','latex');
 
-rangeZ=1; 
+rangeZ=2; 
 i=1;
 for Z=rangeZ
 %subplot(1,2,i)

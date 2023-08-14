@@ -19,8 +19,8 @@ clear
 sens_par_name_1 = "$c$";
 sens_par_name_2 = "$\beta$";
 % ii. Define the range of the sensitivity analysis 
-sens_par_range_1=0:0.1:1; 
-sens_par_range_2=1;
+sens_par_range_1=1; 
+sens_par_range_2=3;
 % iii. Change the assigned value at line 36 and below to "sens_par_1" and "sens_par_2"
 % e.g. to run multiple commitments values (c) as indicated in the range of line 22, at line 50 write:
 % c=sens_par_1;
@@ -40,14 +40,14 @@ for sens_par_2 = sens_par_range_2
 %% Parameter setting
         % NB. If sensitivity analysis is run, the chosen parameters must be assigned the ranges specified above
         R               = 120;                                  %planning horizon
-        T               = 320+R;                                %time
+        T               = 160+R;                                %time
         N               = 2;                                    %set of technologies
         J               = 2;                                    %set of expectation rules                                                                      
         eta             = 0.5;                                  %memory parameter
-        beta            = sens_par_2; %1;                       %belief responsiveness
+        beta            = sens_par_2; %3;                       %belief responsiveness
         gamma           = 1;                                    %investment responsiveness
-        g_tax           = 0.016;                                %tax target growth rate 
-        a               = 1;                                    %vulnerability to transition risks
+        g_tax           = 0.02;                                 %tax target growth rate 
+        a               = 2;                                    %vulnerability to transition risks
         c               = sens_par_1; %1;                                  %commitment
         delta           = 0.018;                                %capital depreciation rate 
         g_Y             = 0.005;                                %exogenous expansion of productive capacity 

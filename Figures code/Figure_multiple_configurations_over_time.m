@@ -17,10 +17,10 @@ fig1=figure('DefaultAxesFontSize',16);
 for i=1:sens_run_1
     hold on 
     plot(sens_res(i,j).tax_target,'LineWidth',0.75)
-    xline(120,'LineWidth',1)
-    xlim([transient end_time])
-    xticks([transient,80,160,240,end_time])
-    xticklabels({'2020','2040','2060','2080','2100'})
+    xline(120+transient,'LineWidth',1)
+    xlim([transient end_time+transient])
+    xticks([transient:40:end_time+transient])
+    xticklabels({'2020','2030','2040','2050','2060'})
     
 end
 set(fig1, 'units', 'centimeters', 'pos', [0 0 12 5])
@@ -33,9 +33,9 @@ fig2=figure('DefaultAxesFontSize',16);
 for i=1:sens_run_1
     hold on
     plot(sens_res(i,j).tax,'LineWidth',0.75) 
-    xlim([transient end_time])
-    xticks([transient,80,160,240,end_time])
-    xticklabels({'2020','2040','2060','2080','2100'})
+    xlim([transient end_time+transient])
+    xticks([transient:40:end_time+transient])
+    xticklabels({'2020','2030','2040','2050','2060'})
 end
 set(fig2, 'units', 'centimeters', 'pos', [0 0 12 5])
 pos = get(fig2,'Position');
@@ -47,9 +47,9 @@ fig3=figure('DefaultAxesFontSize',16);
 for i=1:sens_run_1
     hold on
     plot(sens_res(i,j).n,'LineWidth',0.75)
-    xlim([transient end_time])
-    xticks([transient,80,160,240,end_time])
-    xticklabels({'2020','2040','2060','2080','2100'})
+    xlim([transient end_time+transient])
+    xticks([transient:40:end_time+transient])
+    xticklabels({'2020','2030','2040','2050','2060'})
 end
 set(groot,'defaultAxesTickLabelInterpreter','latex');
 set(fig3, 'units', 'centimeters', 'pos', [0 0 12 5])
@@ -63,9 +63,9 @@ fig4=figure('DefaultAxesFontSize',16);
 for i=1:sens_run_1
     hold on
     plot(sens_res(i,j).chi_agg,'LineWidth',0.75) 
-    xlim([transient end_time])
-    xticks([transient,80,160,240,end_time])
-    xticklabels({'2020','2040','2060','2080','2100'})
+    xlim([transient end_time+transient])
+    xticks([transient:40:end_time+transient])
+    xticklabels({'2020','2030','2040','2050','2060'})
 end
 set(fig4, 'units', 'centimeters', 'pos', [0 0 12 5])
 pos = get(fig4,'Position');
@@ -77,9 +77,9 @@ fig5=figure('DefaultAxesFontSize',16);
 for i=1:sens_run_1
     hold on
     plot(sens_res(i,j).kappa,'LineWidth',0.75)
-    xlim([transient end_time])
-    xticks([transient,80,160,240,end_time])
-    xticklabels({'2020','2040','2060','2080','2100'})
+    xlim([transient end_time+transient])
+    xticks([transient:40:end_time+transient])
+    xticklabels({'2020','2030','2040','2050','2060'})
 end
 set(fig5, 'units', 'centimeters', 'pos', [0 0 12 5])
 pos = get(fig5,'Position');
@@ -91,9 +91,9 @@ fig6=figure('DefaultAxesFontSize',16);
 for i=1:sens_run_1
     hold on
     plot(sens_res(i,j).pi_pot,'LineWidth',0.75) 
-    xlim([transient end_time])
-    xticks([transient,80,160,240,end_time])
-    xticklabels({'2020','2040','2060','2080','2100'})
+    xlim([transient end_time+transient])
+    xticks([transient:40:end_time+transient])
+    xticklabels({'2020','2030','2040','2050','2060'})
 end
 set(fig6, 'units', 'centimeters', 'pos', [0 0 12 5])
 pos = get(fig6,'Position');

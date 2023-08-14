@@ -13,37 +13,37 @@ set(groot,'defaultAxesTickLabelInterpreter','latex');
 
 for i=1:sens_run_1
 for j=1:sens_run_2
-    k_120_range(i,j)=sens_res(i,j).kappa(120); 
+    k_80_range(i,j)=sens_res(i,j).kappa(80); 
 end 
 end 
 
 for i=1:sens_run_1
 for j=1:sens_run_2
-    k_240_range(i,j)=sens_res(i,j).kappa(240); 
+    k_160_range(i,j)=sens_res(i,j).kappa(160); 
 end 
 end 
 
-fig_k120=figure('DefaultAxesFontSize',16);
-surf(k_120_range)
+fig_k80=figure('DefaultAxesFontSize',16);
+surf(k_80_range)
 xlabel(sens_par_name_2,'FontSize',24,'Interpreter','latex')
 ylabel(sens_par_name_1,'FontSize',24,'Interpreter','latex')
 ylim([1 sens_run_1])
 xlim([1 sens_run_2])
 colormap(winter);
-set(fig_k120, 'units', 'centimeters', 'pos', [0 0 20 15])
-pos = get(fig_k120,'Position');
-set(fig_k120,'PaperPositionMode','Auto','PaperUnits','centimeters','PaperSize',[pos(3), pos(4)])
+set(fig_k80, 'units', 'centimeters', 'pos', [0 0 20 15])
+pos = get(fig_k80,'Position');
+set(fig_k80,'PaperPositionMode','Auto','PaperUnits','centimeters','PaperSize',[pos(3), pos(4)])
 view([350 15])
 
-fig_k240=figure('DefaultAxesFontSize',16);
-surf(k_240_range)
+fig_k160=figure('DefaultAxesFontSize',16);
+surf(k_160_range)
 xlabel(sens_par_name_2,'FontSize',24,'Interpreter','latex')
 ylabel(sens_par_name_1,'FontSize',24,'Interpreter','latex')
 ylim([1 sens_run_1])
 xlim([1 sens_run_2])
 colormap(winter);
-set(fig_k240, 'units', 'centimeters', 'pos', [0 0 20 15])
-pos = get(fig_k240,'Position');
-set(fig_k240,'PaperPositionMode','Auto','PaperUnits','centimeters','PaperSize',[pos(3), pos(4)])
+set(fig_k160, 'units', 'centimeters', 'pos', [0 0 20 15])
+pos = get(fig_k160,'Position');
+set(fig_k160,'PaperPositionMode','Auto','PaperUnits','centimeters','PaperSize',[pos(3), pos(4)])
 view([350 30])
 set(gcf, 'renderer', 'opengl');
