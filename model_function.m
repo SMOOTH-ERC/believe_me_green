@@ -8,7 +8,7 @@
 % outputs: all key variables 
 
 
-function[output] = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,g_sk,g_b,D,initial_kappa,initial_lc_cost)
+function[output] = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,tau_minus1,g_sk,g_b,D,initial_kappa,initial_lc_cost)
  
 %% Vectors
 %Costs
@@ -42,12 +42,13 @@ tax_target          =NaN(T,1);              % carbon tax target
 tax                 =NaN(T,N);              % carbon tax implemented
 pi_pot              =NaN(T,1);              % potential transition risk index function
 pi_actual           =NaN(T,1);              % actual transition risk index   
+g_tax_actual        =NaN(T,1);              % Actual tax growth rate
 
 %% Initial values
 kappa(2,:)          =[initial_kappa, 1-initial_kappa]; 
 K(2,:)              =155.2*[kappa(2,1),kappa(2,2)];
-tax(1,2)            =initial_tax;   
-tax(2,2)            =initial_tax;   
+tax(1,2)            =tau_minus1;   
+tax(2,2)            =tau_minus1;   
 tax_target(2)       =initial_tax; 
 E_tax_b(:,:)        =0;                     
 E_tax_s(:,:)        =0;            
@@ -75,12 +76,12 @@ theta(:,2)          =1;
     end   
     
     %Sceptics
-    tax_targ_prev        = tax_target(2);                                          
+    tax_targ_prev        = tau_minus1;                                           
     for tt=3:T  
         E_tax_s(tt,2)    = tax_targ_prev*(1+g_sk);                                 % determine sceptics' expected tax schedule (if fixed)
         tax_targ_prev    = E_tax_s(tt,2);              
-    end   
-      
+    end       
+
     E_tax            =  cat(3,E_tax_b,E_tax_s);
   
 %% T-loop starts
@@ -115,8 +116,9 @@ for t=3:T
     kappa(t,:)      =   K(t,:)./sum(K(t,:));                                   % sectoral capital share
  
 %% Carbon tax implemented      
-    pi_pot(t)      =  1 - 1/(1 + a*(1-kappa(t,1))*tax_target(t));                 % compute potential transition risk index             
-    tax(t,2)        = c*tax_target(t) + (1-c)*tax_target(t)*(1-pi_pot(t));   % set actual tax 
+    pi_pot(t)      =  1 - 1/(1 + a*(1-kappa(t,1))*tax_target(t));                  % compute potential transition risk index             
+    tax(t,2)        = c*tax_target(t) + (1-c)*tax_target(t)*(1-pi_pot(t));         % set actual tax 
+    g_tax_actual(t)        =   (tax(t,2) - tax(t-1,2))/tax(t-1,2);                 % compute actual tax growth rate
     pi_actual(t)    = 1 - 1/(1 + a*(1-kappa(t,1))*tax(t,2));                       % compute actual transition risk index depending on actual tax 
                         
 %% Belief switching  

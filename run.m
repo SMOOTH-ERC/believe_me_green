@@ -20,7 +20,7 @@ sens_par_name_1 = "$c$";
 sens_par_name_2 = "$\beta$";
 % ii. Define the range of the sensitivity analysis 
 sens_par_range_1=0:0.1:1; 
-sens_par_range_2=1;
+sens_par_range_2=3;
 % iii. Change the assigned value at line 36 and below to "sens_par_1" and "sens_par_2"
 % e.g. to run multiple commitments values (c) as indicated in the range of line 22, at line 50 write:
 % c=sens_par_1;
@@ -46,12 +46,13 @@ for sens_par_2 = sens_par_range_2
         eta             = 0.5;                                  %memory parameter
         beta            = sens_par_2; %1;                       %belief responsiveness
         gamma           = 1;                                    %investment responsiveness
-        g_tax           = 0.016;                                %tax target growth rate 
-        a               = 1;                                    %vulnerability to transition risks
+        g_tax           = 0.02;                                 %tax target growth rate 
+        a               = 2;                                    %vulnerability to transition risks
         c               = sens_par_1; %1;                                  %commitment
         delta           = 0.018;                                %capital depreciation rate 
         g_Y             = 0.005;                                %exogenous expansion of productive capacity 
-        initial_tax     = 0.15;                                 %initial tax target
+        initial_tax     = 0.2;                                  %initial tax target
+        tau_minus1      = 0.15;                                 %initial tax level
         epsilon         = 0;                                    %sceptics' discount of announced tax growth rate
         g_sk            = epsilon*g_tax;                        %tax growth rate expected by skeptics
         g_b             = g_tax;                                %tax gowth rate expected by believers
@@ -62,7 +63,7 @@ for sens_par_2 = sens_par_range_2
   
         %% Run model
         % Model equations are called as a function file
-        output = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,g_sk,g_b,D,initial_kappa,initial_lc_cost);
+        output = model_function(R,T,N,J,eta,beta,gamma,g_tax,a,c,delta,g_Y,initial_tax,tau_minus1,g_sk,g_b,D,initial_kappa,initial_lc_cost);
         load(output)
        
         %% Store results
@@ -84,6 +85,7 @@ for sens_par_2 = sens_par_range_2
         sens_res(sens_run_1,sens_run_2).U_s             =   U(:,2);
         sens_res(sens_run_1,sens_run_2).chi_b           =   chi(:,1);
         sens_res(sens_run_1,sens_run_2).chi_s           =   chi(:,2);
+        sens_res(sens_run_1,sens_run_2).g_tax_actual    =   g_tax_actual;
              
     end 
 end 

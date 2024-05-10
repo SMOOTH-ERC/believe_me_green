@@ -13,7 +13,7 @@ fig1=figure('DefaultAxesFontSize',16);
 plot(sens_res(1,1).tax_target,'LineWidth',1)
 hold on 
 xline(120+transient,'LineWidth',1)
-annotation('textbox', [0.39, 0.7, 0.35, 0.1], 'String', "Carbon price in 2050: 591 \$/tCO2",'Interpreter','latex','FontSize',10,'FontWeight','Bold','EdgeColor','none');
+annotation('textbox', [0.39, 0.7, 0.35, 0.1], 'String', "Carbon price in 2050: 590 \$/tCO2",'Interpreter','latex','FontSize',10,'FontWeight','Bold','EdgeColor','none');
 xlim([transient end_time + transient])
     xticks([transient:40:end_time+transient])
     xticklabels({'2020','2030','2040','2050','2060'})
