@@ -20,7 +20,7 @@ sens_par_name_1 = "$c$";
 sens_par_name_2 = "$\beta$";
 % ii. Define the range of the sensitivity analysis 
 sens_par_range_1=0:0.1:1; 
-sens_par_range_2=3;
+sens_par_range_2=0.15;
 % iii. Change the assigned value at line 36 and below to "sens_par_1" and "sens_par_2"
 % e.g. to run multiple commitments values (c) as indicated in the range of line 22, at line 50 write:
 % c=sens_par_1;
@@ -44,7 +44,7 @@ for sens_par_2 = sens_par_range_2
         N               = 2;                                    %set of technologies
         J               = 2;                                    %set of expectation rules                                                                      
         eta             = 0.5;                                  %memory parameter
-        beta            = sens_par_2; %1;                       %belief responsiveness
+        beta            = 3;                       %belief responsiveness
         gamma           = 1;                                    %investment responsiveness
         g_tax           = 0.02;                                 %tax target growth rate 
         a               = 2;                                    %vulnerability to transition risks
@@ -52,7 +52,7 @@ for sens_par_2 = sens_par_range_2
         delta           = 0.018;                                %capital depreciation rate 
         g_Y             = 0.005;                                %exogenous expansion of productive capacity 
         initial_tax     = 0.2;                                  %initial tax target
-        tau_minus1      = 0.15;                                 %initial tax level
+        tau_minus1      = sens_par_2; %0.15;                                 %initial tax level
         epsilon         = 0;                                    %sceptics' discount of announced tax growth rate
         g_sk            = epsilon*g_tax;                        %tax growth rate expected by skeptics
         g_b             = g_tax;                                %tax gowth rate expected by believers

@@ -49,7 +49,7 @@ kappa(2,:)          =[initial_kappa, 1-initial_kappa];
 K(2,:)              =155.2*[kappa(2,1),kappa(2,2)];
 tax(1,2)            =tau_minus1;   
 tax(2,2)            =tau_minus1;   
-tax_target(2)       =initial_tax; 
+tax_target(3)       =initial_tax; 
 E_tax_b(:,:)        =0;                     
 E_tax_s(:,:)        =0;            
 U(1:3,:)            =[1,0.15;1,0.15;1,0.15]; 
@@ -60,8 +60,8 @@ theta(:,2)          =1;
 
 %%  Carbon tax announcement 
     
-    tax_targ_prev           =   tax_target(2);            
-    for tt=3:T  
+    tax_targ_prev           =   tax_target(3);            
+    for tt=4:T  
         tax_target(tt)  =   tax_targ_prev*(1 + g_tax);
         tax_targ_prev   =   tax_target(tt);
     end   
@@ -69,15 +69,17 @@ theta(:,2)          =1;
 %% Tax expectations
 
     %Believers
-    tax_targ_prev        = tax_target(2);                                          
-    for tt=3:T  
+    tax_targ_prev        = tax_target(3);  
+    E_tax_b(3,2)         = tax_target(3); 
+    for tt=4:T  
         E_tax_b(tt,2)    = tax_targ_prev*(1+g_b);                                 % determine sceptics' expected tax schedule (if fixed)
         tax_targ_prev    = E_tax_b(tt,2);              
     end   
     
     %Sceptics
+    E_tax_s(3,2)         = tau_minus1;
     tax_targ_prev        = tau_minus1;                                           
-    for tt=3:T  
+    for tt=4:T  
         E_tax_s(tt,2)    = tax_targ_prev*(1+g_sk);                                 % determine sceptics' expected tax schedule (if fixed)
         tax_targ_prev    = E_tax_s(tt,2);              
     end       
