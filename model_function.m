@@ -126,7 +126,7 @@ for t=3:T
 %% Belief switching  
     E_tax_t         =   reshape(E_tax(t,:,:),[N,J]);                               % expected tax in previous period by both belief types
     acc(t-1,:)      =   abs(tax(t,2) - E_tax_t(2,:));                              % absolute value of prediction errors
-    U(t-1,:)        =   eta*acc(t-1,:) + (1-eta)*U(t-2,:);                         % fitness measure of expectation rules 
+    U(t-1,:)        =   (1-eta)*acc(t-1,:) + eta*U(t-2,:);                         % fitness measure of expectation rules 
     z(t)            =   exp(-beta.*U(t-1,1));                                      % logit numerator 
     zz(t)           =   sum(exp(-beta*U(t-1,:)));                                  % logit denominator 
     n(t)            =   z(t)/zz(t);                                                % share of believers
